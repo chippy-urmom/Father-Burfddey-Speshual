@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #FFF5EA;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main Card */
+        .card {
+            background: #FFFBF5;
+            border-radius: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            padding: 60px 50px;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Text Styling */
+        .top-text {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: #2C3E83;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* SWAPPED COLOR: This is now the Blue */
+        .big-love {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: 80px;
+            color: #2C3E83; 
+            font-weight: 700;
+            letter-spacing: 8px;
+            margin: 10px 0 30px 0;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .bottom-text {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: 20px;
+            color: #2C3E83;
+            margin-top: 30px;
+            line-height: 1.6;
+        }
+        
+        /* SWAPPED COLOR: This is now the Burgundy/Red */
+        .bottom-text span {
+            font-weight: 700;
+            font-style: italic;
+            color: #5A1A2E; 
+        }
+
+        /* Centered Credit at the bottom */
+        .credit {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-weight: 400;
+            color: #9EA4B8;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        /* New Button Styles just in case */
+        .footer-btn {
+            background: transparent;
+            border: 1px solid #B2C9D6;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #3B4C8B;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .footer-btn:hover {
+            background: #F1F6F9;
+        }
+
+        @media (max-width: 500px) {
+            .card { padding: 40px 20px; }
+            .big-love { font-size: 50px; letter-spacing: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="top-text">One last thing...</div>
+
+        <!-- Now Blue -->
+        <div class="big-love">I LOVE YOU</div>
+
+        <div class="bottom-text">
+            Happy Birthday<br>
+            <!-- Now Burgundy/Red -->
+            <span>Thank you for being you.</span>
+        </div>
+
+        <!-- SEPARATOR SPACE -->
+        <div style="height: 30px;"></div>
+
+        <!-- BOTTOM NAV ROW (Only Left Button) -->
+        <div style="display: flex; justify-content: flex-start; width: 100%; padding: 0 10px;">
+            <!-- Left Button: Back to Cake -->
+            <a href="cake.html" style="text-decoration: none;">
+                <button class="footer-btn" style="margin: 0;">
+                    <span>←</span> Cake
+                </button>
+            </a>
+        </div>
+
+        <div class="credit">
+            SHIMDY@nixxcer
+        </div>
+    </div>
+
+</body>
+</html>

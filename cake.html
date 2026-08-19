@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Cake</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #FFF5EA;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main Card */
+        .card {
+            background: #FFFBF5;
+            border-radius: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            padding: 40px 50px;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 5px;
+        }
+        .header-icon {
+            font-size: 32px;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            color: #2C3E83;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            color: #5A4A5A;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* SVG Cake Section */
+        .cake-wrapper {
+            margin: 10px 0 20px 0;
+        }
+        .cake-illustration {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Speech Bubble */
+        .speech-bubble {
+            background: #F1F6F9;
+            border: 1px solid #B2C9D6;
+            border-radius: 50px;
+            padding: 20px 30px;
+            margin: 20px 0 30px 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .speech-text {
+            color: #2C3E83;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .btn {
+            padding: 12px 22px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .btn:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-start {
+            background-color: #3B4C8B;
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 76, 139, 0.3);
+        }
+        .btn-blow {
+            background-color: #F5E8C7;
+            color: #5A4A5A;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .btn-reset {
+            background-color: #E0E0E0;
+            color: #3B4C8B;
+            border: 1px solid #B2C9D6;
+        }
+        .btn-icon {
+            font-size: 18px;
+        }
+
+        /* Hint Text */
+        .hint {
+            color: #A0A0A0;
+            font-size: 13px;
+            margin-bottom: 30px;
+            min-height: 20px; /* prevents layout jump */
+        }
+
+        /* Divider */
+        hr {
+            border: 0;
+            border-top: 1px solid #E0D8D0;
+            margin: 20px 0;
+        }
+
+        /* Footer */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .footer-btn {
+            background: transparent;
+            border: 1px solid #B2C9D6;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #3B4C8B;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .footer-btn:hover {
+            background: #F1F6F9;
+        }
+        .credits {
+            font-family: 'Playfair Display', serif;
+            color: #9EA4B8;
+            font-size: 14px;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+        .credits strong {
+            color: #7A8094;
+        }
+        
+        /* Candle Blow Animation */
+        #candle-flame {
+            transition: all 0.3s ease;
+        }
+        #candle-flame.blown-out {
+            opacity: 0;
+            transform: scale(0.2);
+        }
+
+        @media (max-width: 500px) {
+            .card { padding: 30px 20px; }
+            h1 { font-size: 30px; }
+            .action-buttons { flex-direction: column; align-items: center; width: 100%; }
+            .btn { width: 100%; justify-content: center; }
+            .footer { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- HEADER -->
+        <div class="header">
+            <span class="header-icon">🧁</span>
+            <h1>Birthday Cake</h1>
+        </div>
+        <div class="subtitle">
+            ✦ Make a Wish, D! ✦
+        </div>
+
+        <!-- CAKE SVG -->
+        <div class="cake-wrapper">
+            <svg class="cake-illustration" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+                <!-- VANILLA BOTTOM LAYERS -->
+                <rect x="100" y="140" width="200" height="130" rx="15" fill="#E8D5A6" filter="drop-shadow(0px 10px 10px rgba(0,0,0,0.08))" />
+                <rect x="110" y="170" width="180" height="25" rx="12" fill="#D4B87A" opacity="0.4" />
+                <rect x="110" y="200" width="180" height="25" rx="12" fill="#D4B87A" opacity="0.4" />
+                <rect x="110" y="230" width="180" height="25" rx="12" fill="#D4B87A" opacity="0.4" />
+                <rect x="100" y="260" width="200" height="10" rx="5" fill="#C0A668" />
+
+                <!-- BLUE TOP LAYER -->
+                <rect x="100" y="130" width="200" height="25" rx="12" fill="#5DADE2" />
+                <rect x="102" y="132" width="196" height="8" rx="4" fill="#D6EAF8" opacity="0.6" />
+                
+                <!-- DOTS -->
+                <circle cx="130" cy="142" r="3" fill="#3A4A7A" />
+                <circle cx="145" cy="142" r="3" fill="#FFD700" />
+                <circle cx="160" cy="142" r="3" fill="#FF6B6B" />
+                <circle cx="175" cy="142" r="3" fill="#3A4A7A" />
+                <circle cx="190" cy="142" r="3" fill="#FFD700" />
+                <circle cx="205" cy="142" r="3" fill="#FF6B6B" />
+                <circle cx="220" cy="142" r="3" fill="#FFD700" />
+                <circle cx="235" cy="142" r="3" fill="#3A4A7A" />
+                <circle cx="250" cy="142" r="3" fill="#FFD700" />
+                <circle cx="265" cy="142" r="3" fill="#3A4A7A" />
+
+                <!-- WAX CANDLE -->
+                <rect x="190" y="40" width="20" height="90" rx="4" fill="#FDF5E6" /> 
+                <rect x="192" y="45" width="4" height="80" fill="#FFFFFF" opacity="0.6" /> 
+                
+                <!-- FLAME -->
+                <circle cx="200" cy="30" r="18" fill="#A8D5FF" opacity="0.4" filter="blur(4px)" />
+                <g id="candle-flame">
+                    <path d="M200 10 C210 20 210 35 200 35 C190 35 190 20 200 10Z" fill="#5DADE2" />
+                    <path d="M200 18 C205 25 205 32 200 32 C195 32 195 25 200 18Z" fill="#FFFFFF" opacity="0.8" />
+                </g>
+            </svg>
+        </div>
+
+        <!-- SPEECH BUBBLE -->
+        <div class="speech-bubble">
+            <div class="speech-text">Make a wish before blowing out the candles!</div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="action-buttons">
+            <button id="listenBtn" class="btn btn-start">
+                <span class="btn-icon">🎙️</span> <span id="listenText">Start Listening</span>
+            </button>
+            <button id="blowBtn" class="btn btn-blow">
+                <span class="btn-icon">✨</span> Click to Blow
+            </button>
+            <button id="resetBtn" class="btn btn-reset">
+                <span class="btn-icon">🔄</span> Reset Candle
+            </button>
+        </div>
+        <div id="statusHint" class="hint">Click "Start Listening" or "Click to Blow"</div>
+
+        <!-- DIVIDER -->
+        <hr>
+
+        <!-- FOOTER -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; padding: 0 10px; min-height: 70px; position: relative;">
+            
+            <!-- Left Button: Calendar -->
+            <a href="calendar.html" style="text-decoration: none;">
+                <button class="footer-btn" style="margin: 0;">
+                    <span>←</span> Calendar
+                </button>
+            </a>
+            
+            <!-- Center Bottom Text -->
+            <div style="font-family: 'Playfair Display', 'Times New Roman', serif; font-weight: 400; color: #9EA4B8; font-size: 15px; letter-spacing: 0.5px; flex-grow: 1; text-align: center; position: absolute; bottom: 0; left: 0; right: 0; padding-bottom: 10px;">
+                SHIMDY@nixxcer
+            </div>
+
+            <!-- Right Button: Last Page -->
+            <a href="lastpage.html" style="text-decoration: none;">
+                <button class="footer-btn" style="margin: 0;">
+                    <span>Last But Not Least →</span>
+                </button>
+            </a>
+        </div>
+    </div> <!-- Closes the card -->
+
+    <script>
+        // JavaScript starts here...
+        const listenBtn = document.getElementById('listenBtn');
+        // ... (the rest of your script)
+    </script>
+</body>
+</html>
+
+    <script>
+        const listenBtn = document.getElementById('listenBtn');
+        const blowBtn = document.getElementById('blowBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const flame = document.getElementById('candle-flame');
+        const listenText = document.getElementById('listenText');
+        const statusHint = document.getElementById('statusHint');
+
+        let isListening = false;
+        let isBlownOut = false;
+        let listeningTimeout = null;
+
+        // 1. RESET CANDLE BUTTON
+        resetBtn.addEventListener('click', () => {
+            // Cancel any ongoing listening simulation
+            if (listeningTimeout) {
+                clearTimeout(listeningTimeout);
+                listeningTimeout = null;
+            }
+
+            // Reset Candle State
+            isBlownOut = false;
+            isListening = false;
+            flame.classList.remove('blown-out');
+
+            // Reset Buttons
+            listenBtn.disabled = false;
+            blowBtn.disabled = false;
+            listenBtn.style.backgroundColor = "#3B4C8B";
+            listenText.textContent = "Start Listening";
+
+            // Reset Text
+            statusHint.textContent = "Candle reset! Make a wish again.";
+            statusHint.style.color = "#2C3E83";
+        });
+
+        // 2. START LISTENING BUTTON
+        listenBtn.addEventListener('click', async () => {
+            if (isBlownOut) {
+                statusHint.textContent = "The candle is already out! Click Reset first.";
+                statusHint.style.color = "#D32F2F";
+                return;
+            }
+
+            try {
+                await navigator.mediaDevices.getUserMedia({ audio: true });
+                
+                isListening = !isListening;
+                if (isListening) {
+                    listenBtn.style.backgroundColor = "#D32F2F"; // Red
+                    listenText.textContent = "Stop Listening";
+                    statusHint.textContent = "🎤 Listening for a blow...";
+                    statusHint.style.color = "#2C3E83";
+                    
+                    // Simulate detection after 3 seconds
+                    listeningTimeout = setTimeout(() => {
+                        if(isListening) {
+                            blowOutCandle();
+                            statusHint.textContent = "💨 Blow detected! Candle blown out!";
+                            listenBtn.style.backgroundColor = "#3B4C8B";
+                            listenText.textContent = "Start Listening";
+                            isListening = false;
+                        }
+                    }, 3000);
+
+                } else {
+                    // Stop listening
+                    if (listeningTimeout) {
+                        clearTimeout(listeningTimeout);
+                        listeningTimeout = null;
+                    }
+                    listenBtn.style.backgroundColor = "#3B4C8B";
+                    listenText.textContent = "Start Listening";
+                    statusHint.textContent = "Click 'Start Listening' or 'Click to Blow'";
+                    statusHint.style.color = "#A0A0A0";
+                }
+
+            } catch (err) {
+                statusHint.textContent = "⚠️ Microphone access denied.";
+                statusHint.style.color = "#D32F2F";
+            }
+        });
+
+        // 3. CLICK TO BLOW BUTTON
+        blowBtn.addEventListener('click', () => {
+            if (isBlownOut) {
+                statusHint.textContent = "Already blown out! Reset to try again.";
+                statusHint.style.color = "#D32F2F";
+                return;
+            }
+            if (listeningTimeout) {
+                clearTimeout(listeningTimeout); // Cancel listening if they click blow manually
+                listeningTimeout = null;
+                listenBtn.style.backgroundColor = "#3B4C8B";
+                listenText.textContent = "Start Listening";
+                isListening = false;
+            }
+            blowOutCandle();
+            statusHint.textContent = "✨ Wish made! Happy Birthday!";
+            statusHint.style.color = "#2C3E83";
+        });
+
+        // 4. THE BLOW OUT FUNCTION
+        function blowOutCandle() {
+            if (isBlownOut) return;
+            isBlownOut = true;
+            
+            flame.classList.add('blown-out');
+            
+            listenBtn.disabled = true;
+            blowBtn.disabled = true;
+            
+            listenText.textContent = "Done!";
+            listenBtn.style.backgroundColor = "#A0A0A0";
+        }
+    </script>
+</body>
+</html>
